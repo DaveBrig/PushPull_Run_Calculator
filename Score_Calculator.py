@@ -35,9 +35,7 @@ with st.sidebar:
 
 # Set Lifting Total   
 with st.sidebar:
-   Lift_total = st.select_slider(
-    'Set Push Pull Total', value = 150,
-    options=list(range(40, 600)))
+   Lift_total = st.number_input(label="Set Push Pull Total",step=2.5,format="%.2f", value = 102.5)
    
 global tables
 
@@ -114,8 +112,11 @@ with WAP:
         return(WAP)
 
     Weight_Adjusted_Performance = WAP(bwt, Ideal, Age_adjusted_performance)
+    WAP_score_rounded = round(Weight_Adjusted_Performance, 2)
         
-    st.write('WAP Score', Weight_Adjusted_Performance)
+    st.write("WAP Score: ", 
+         "<span style='font-size: 24px; color: red;'>{}</span>".format(WAP_score_rounded),
+         unsafe_allow_html=True)
 
 with DOTS:
     st.header('Calculate the DOTS Score')
@@ -127,8 +128,11 @@ with DOTS:
          return(dots)
 
     dots = DOTS(Lift_total, bwt, A, B, C, D, E)
+    DOTS_score_rounded = round(dots, 2)
     
-    st.write('DOTS Score', dots)
+    st.write("DOTS Score: ", 
+        "<span style='font-size: 24px; color: red;'>{}</span>".format(DOTS_score_rounded),
+        unsafe_allow_html=True)
 
 with IBP:
     st.header('Calculate the Integrated Balanced Performance (IBP) Score')
@@ -139,5 +143,10 @@ with IBP:
         return(IBP)
 
     score = IBP(dots, Weight_Adjusted_Performance)
-    st.write('IBP Score', score)
+    score_rounded = round(score, 2)
+
+    st.write("IBP Score: ", 
+    "<span style='font-size: 30px; color: green;'>{}</span>".format(score_rounded),
+    unsafe_allow_html=True)
+
 
