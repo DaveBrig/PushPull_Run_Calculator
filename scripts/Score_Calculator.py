@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from functions import *
 
 header = st.container()
 dataset = st.container()
@@ -52,6 +51,54 @@ with dataset:
 
 with WAP:
     st.header('Calculate the Weight Adjusted Performance Score (WAP)')
+
+    # Define Gender variables:
+    def gender(gen):
+        if 'Male' in gen:
+            # Create Mens DOTS Coefficients
+            A =  -0.0000010930 
+            B = 0.0007391293 
+            C = -0.1918759221 
+            D = 24.0900756
+            E = -307.75076 
+
+            #Physical parameters 
+            Ideal = 87
+            Record = 3.47
+
+        else: 
+            # Create Womens Coefficients
+            A = -0.0000010706 
+            B = 0.0005158568 
+            C = -0.1126655495 
+            D = 13.6175032 
+            E = -57.96288 
+
+            #Physical parameters 
+            Ideal = 71.8
+            Record = 4.12
+
+        return(A, B, C, D, E, Ideal, Record)
+    
+    # Get factor
+    def get_factor(Age, Gender):
+        factor = tables[tables["Age"] == Age]
+        factor = factor[Gender]
+        factor = factor.iloc[0]
+
+        return(factor)
+    
+    # Get Age Adjusted Time
+    def AAT(Time, f):
+        AAT = Time*f
+
+        return(AAT)
+    
+    # Get Age Graded Performance
+    def AGP(Record, adjusted_time):
+        AGP = (Record/adjusted_time)*100
+
+        return(AGP)
 
     A, B, C, D, E, Ideal, Record = gender(Gender)
     f = get_factor(Age, Gender)
