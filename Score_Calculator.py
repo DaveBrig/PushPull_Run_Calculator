@@ -8,6 +8,7 @@ WAP = st.container()
 DOTS = st.container()
 IBP = st.container()
 
+
 # Add a sidebar 
 st.sidebar.subheader("Variables")
 
