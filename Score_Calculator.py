@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import datetime
+from PIL import Image
 
 header = st.container()
 dataset = st.container()
@@ -8,32 +10,44 @@ WAP = st.container()
 DOTS = st.container()
 IBP = st.container()
 
-
-# Add a sidebar 
-st.sidebar.subheader("Variables")
+# Add MSC Logo
+with st.sidebar:
+    image = Image.open('msc.png')
+    st.image(image)
 
 # Select Gender
+st.sidebar.subheader("Set Gender")
+
 with st.sidebar:
     Gender = st.radio(
         "Select Gender",
         ("Male", "Female"))
 
 # Set Age
+st.sidebar.subheader("Set Age")
+
 with st.sidebar:
    Age = st.select_slider(
     'Set Age', value = 20,
     options=list(range(5,100)))
 
-# Set Bodyweight   
-# Set Running Time   
+# Set Bodyweight
+st.sidebar.subheader("Set Bodyweight (kg)")
+  
 with st.sidebar:
    bwt = st.number_input(label="Bodyweight (kg)",step=1.,format="%.2f", value = 75.0)
 
-# Set Running Time   
+# Set Running Time 
+st.sidebar.subheader("Set One Mile Time")
+  
 with st.sidebar:
-   Time = st.number_input(label="One Mile Time",step=1.,format="%.2f", value = 8.00)
+    minutes = st.number_input(label="Minutes", min_value=0, max_value=59, step=1,value = 8)
+    seconds = st.number_input(label="Seconds", min_value=0, max_value=59, step=1, value = 30)
+    Time = float(str(minutes) + '.'  + str(seconds))
 
 # Set Lifting Total   
+st.sidebar.subheader("Set Push-Pull Total (kg)")
+   
 with st.sidebar:
    Lift_total = st.number_input(label="Set Push Pull Total",step=2.5,format="%.2f", value = 102.5)
    
