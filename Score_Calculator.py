@@ -9,6 +9,7 @@ dataset = st.container()
 WAP = st.container()
 DOTS = st.container()
 IBP = st.container()
+Explain = st.container()
 
 # Add MSC Logo
 with st.sidebar:
@@ -58,7 +59,6 @@ with header:
     st.text('This application calculates the integrated DOTS and Running Performance Score')
 
 with dataset:
-    st.header('Tables') 
     st.text('Loaded Lytton 2020 Age Factors')
     tables = pd.read_csv('AlanLytton_2020.csv')
 
@@ -162,5 +162,21 @@ with IBP:
     st.write("IBP Score: ", 
     "<span style='font-size: 30px; color: green;'>{}</span>".format(score_rounded),
     unsafe_allow_html=True)
+
+with Explain:
+    st.write("This application can be used to calculate the Integrated and Balanced Performance (IBP) score developed for the Melbourne Strength Culture Push-Pull Run event.")
+
+    st.write("Age Graded Performance (AGP) is calculated using the formula (Record/(Tme x f)) x 100, where Record = 1 Mile Record for the relevant gender, Time = 1 mile time, f = Age Grade Factor.",
+              "Another example of this calculation can be seen at https://runhive.com/tools/performance-calculator.")
+    st.write("Age Grade Tables required to calculate this score were obtained from https://github.com/AlanLyttonJones/Age-Grade-Tables.")
+
+    st.write("The formula to obtain Weight Adjusted Performance (WAP) is (bwt/Av_bwt) x AGP, where bwt = athletes bodyweight and Av_bwt = The Average bodyweight of the relevant gender according to the 2018 Australian Bureau of Statistics.")
+
+    st.write("The DOTS score is calculated by the method outlined in https://www.powerlifting.sport/fileadmin/ipf/data/ipf-formula/Models-Evaluation-I-2020.pdf.")
+
+    st.write("The IBP is calculated using (DOTS x 0.25) + WAP" )
+
+
+
 
 
